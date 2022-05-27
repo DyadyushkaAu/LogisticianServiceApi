@@ -5,16 +5,31 @@
 
 {%endblock%}
 
-{% block Title %}
-    Заказать
+{% block title %}
+    {{title}}
 {% endblock %}
 
 {% block MainContent %}
     <div class="container">
         <form method="post">
             {%csrf_token%}
+            <div class="error_wrapper">
+                {% for error in form.phone_number.errors %}
+                    {{ error | escape }}
+                {% endfor %}
+            </div>
             {{form.phone_number}} <br>
+            <div class="error_wrapper">
+                {% for error in form.address.errors %}
+                    {{ error | escape }}
+                {% endfor %}
+            </div>
             {{form.address}} <br>
+            <div class="error_wrapper">
+                {% for error in form.mass.errors %}
+                    {{ error | escape }}
+                {% endfor %}
+            </div>
             {{form.mass}} <br>
             <button class="w-100 btn btn-primary btn-lg" type="submit">Оформить заказ</button>
             <span>{{error}}</span>

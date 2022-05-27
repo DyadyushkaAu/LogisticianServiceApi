@@ -5,11 +5,14 @@
     <link rel="stylesheet" href="{% static 'css/rows.css'%}">
 {%endblock%}
 
-{% block Title %}
-    Мои заказы
+{% block title %}
+    {{title}}
 {% endblock %}
 
 {% block MainContent %}
+
+<div style='display: flex' class="container"><label for='id_user'>Здравствуйте, <p id='id_user'> {{user}}</p></label></div>
+
 <div class="container">
     <div class="row mb-3">
       <div class="col-4 themed-grid-col">Номер заказа</div>
@@ -18,9 +21,11 @@
     </div>
 
     <div class="row mb-3">
-      <div class="col-sm-4 themed-grid-col"> </div>
-      <div class="col-sm-4 themed-grid-col"> </div>
-      <div class="col-sm-4 themed-grid-col"> </div>
+      {% for order in orders %}
+        <div class="col-sm-4 themed-grid-col">{{ order.id }}</div>
+        <div class="col-sm-4 themed-grid-col">{{ order.date }}</div>
+        <div class="col-sm-4 themed-grid-col">{{ order.state }}</div>
+      {% endfor %}
     </div>
 </div>
 {% endblock %}

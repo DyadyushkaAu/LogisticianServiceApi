@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Logistician(models.Model):
@@ -11,11 +13,13 @@ class Logistician(models.Model):
     def __str__(self):
         return f'{self.name} {self.surname} {self.user.email}'
 
+
 class City(models.Model):
     name = models.CharField(max_length=80, null=False, blank=False)
 
     def __str__(self):
         return f'{self.name}'
+
 
 class District(models.Model):
     name = models.CharField(max_length=80, null=False, blank=False)
@@ -35,20 +39,22 @@ class Street(models.Model):
 
 class Order(models.Model):
     address = models.CharField(max_length=150, null=False, blank=False)
-    state = models.CharField(max_length=45, null=False, blank=False)
+    state = models.CharField(max_length=45, null=False, blank=True)
     date = models.DateField(auto_now_add=True)
     mass = models.DecimalField(max_digits=10, decimal_places=2, null=False)
     phone_number = models.BigIntegerField(null=False, blank=False)
-    orderer = models.ForeignKey(User, on_delete=models.CASCADE)
+    orderer = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
 
     def __str__(self):
         return f'{self.address} {self.state} {self.phone_number} {self.mass}'
+
 
 class Manufacturer_Model(models.Model):
     manufacturer_model = models.CharField(max_length=80, null=False, blank=False)
 
     def __str__(self):
         return f'{self.manufacturer_model}'
+
 
 class Car(models.Model):
     gn = models.CharField(unique=True, max_length=10, primary_key=True)
@@ -57,6 +63,7 @@ class Car(models.Model):
 
     def __str__(self):
         return f'{self.manufacturer_model} {self.gn}'
+
 
 class Driver(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -82,3 +89,22 @@ class Waybill(models.Model):
 
     def __str__(self):
         return f'{self.number_of_waybill} {self.order.address} {self.state}'
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    phone_number = models.BigIntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.user} {self.phone_number}'
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()

@@ -5,16 +5,26 @@
 
 {%endblock%}
 
-{% block Title %}
-    Регистрация
+{% block title %}
+    {{title}}
 {% endblock %}
 
 {% block MainContent %}
     <h1 class="text-center">Регистрация</h1>
     <p class="text-center">Пожалуйста, зарегистрируйтесь</p>
-    <form action="." class="pricing-header p-3 pb-md-4 mx-auto" method="post">
-        {{ user_form.as_p }}
+    <form action="{% url 'signup' %}" class="pricing-header p-3 pb-md-4 mx-auto" method="post">
         {% csrf_token %}
+        {% for field in user_form %}
+        <div class="row_wrapper">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            <p>{{ field }}</p>
+            <div class="error_wrapper">
+                {% for error in field.errors %}
+                    {{ error | escape }}
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
         <p class="text-center"><input class="w-50 btn btn-lg btn-primary" type="submit" value="Зарегистрироваться"></p>
     </form>
 

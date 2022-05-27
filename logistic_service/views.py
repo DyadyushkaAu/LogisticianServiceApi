@@ -13,10 +13,22 @@ def signup(request):
             new_user = user_form.save(commit=False)
             new_user.set_password(user_form.cleaned_data['password'])
             new_user.save()
-            return render(request, 'logistic_service/register_done.html', {'new_user': new_user})
+            return render(request, 'logistic_service/register_done.html', context={
+                'new_user': new_user,
+                'title': 'Регистрация завершина'
+            })
+        else:
+            user_form = UserRegistrationForm(request.POST)
+            return render(request, 'logistic_service/signup.html', context={
+                'user_form': user_form,
+                'title': 'Регистрация'
+            })
     else:
         user_form = UserRegistrationForm()
-    return render(request, 'logistic_service/signup.html', {'user_form': user_form})
+        return render(request, 'logistic_service/signup.html', context={
+            'user_form': user_form,
+            'title': 'Регистрация'
+        })
 
 
 def Index(request):
@@ -32,11 +44,17 @@ def Catalogue(request):
 
 
 def MyOrders(request):
-    orders = Order.objects.all()
+    orders = Order.objects.filter(orderer=request.user)
     cities = City.objects.all()
     streets = Street.objects.all()
     districts = District.objects.all()
-    return render(request, 'logistic_service/orders.html', {'Orders': orders, 'cities': cities, 'streets': streets, 'districts': districts})
+    return render(request, 'logistic_service/orders.html', {
+        'orders': orders,
+        'cities': cities,
+        'streets': streets,
+        'districts': districts,
+        'user': request.user
+    })
 
 
 def CreateOrder(request):
@@ -44,9 +62,16 @@ def CreateOrder(request):
     if request.method == 'POST':
         form = OrdrsForm(request.POST)
         if form.is_valid():
+            form = form.save(commit=False)
+            form.orderer = request.user
+            form.state = 'Новый'
             form.save()
         else:
-            error = 'Форма была неверной'
+            print(form.errors)
+            form = OrdrsForm(request.POST)
+            return render(request,
+                          'logistic_service/createorder.html',
+                          context={'form': form, 'error': 'Форма неверна'})
 
     form = OrdrsForm()
     context = {

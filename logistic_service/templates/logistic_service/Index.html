@@ -21,8 +21,8 @@
     <script src="{% static 'JS/scripts.js'%}"></script>
 {%endblock%}
 
-{% block Title %}
-    Главная страница
+{% block title %}
+    {{title}}
 {% endblock %}
 
 {% block MainContent %}
@@ -36,6 +36,15 @@
           <div class="carousel-item">
             <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"><img width="800px" src="{% static 'images/First.jpg'%}"></img></rect></svg>
 
+              {% if user.is_authenticated %}
+              <div class="container">
+              <div class="carousel-caption text-start">
+                <h1>БОЛЬШАЯ КЛИЕНТСКАЯ БАЗА</h1>
+                <p>Станьте клиентом "ТрансЛогистик" сегодня</p>
+                <p><a class="btn btn-lg btn-primary" href="{% url 'crorder' %}">Оформите заказ сегодня</a></p>
+              </div>
+            </div>
+              {% else %}
             <div class="container">
               <div class="carousel-caption text-start">
                 <h1>БОЛЬШАЯ КЛИЕНТСКАЯ БАЗА</h1>
@@ -43,6 +52,7 @@
                 <p><a class="btn btn-lg btn-primary" href="{% url 'signup' %}">Зарегистрируйтесь сегодня</a></p>
               </div>
             </div>
+              {% endif %}
           </div>
           <div class="carousel-item active carousel-item-start">
               <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"><img width="800px" src="{% static 'images/Second.png'%}"></img></rect></svg>

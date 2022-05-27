@@ -1,5 +1,5 @@
 from django.contrib import admin
-from logistic_service.models import Logistician, District, Order, Car, Driver, Street, Waybill, Manufacturer_Model, City
+from logistic_service.models import Logistician, District, Order, Car, Driver, Street, Waybill, Manufacturer_Model, City, Profile
 
 
 class DriverAdmin(admin.ModelAdmin):
@@ -27,3 +27,4 @@ admin.site.register(Street)
 admin.site.register(Waybill)
 admin.site.register(Manufacturer_Model)
 admin.site.register(City)
+admin.site.register(Profile)

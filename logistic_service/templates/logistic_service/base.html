@@ -6,7 +6,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block Title %}{% endblock %}</title>
+    {% comment %} TODO Блок title можно передвать в response из view {% endcomment %}
+    <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/pricing.css'%}">
     <link rel="stylesheet" href="{% static 'css/base.css'%}">
     <link rel="stylesheet" href="{% static 'css/base1.css'%}">
@@ -36,6 +37,8 @@
             <span class="fs-4">"ТрансЛогистик"</span>
           </a>
           {% if user.is_authenticated %}
+          
+          {% comment %} TODO Зачем тут CSRF? Он применяется только к формам чтобы исключить их подмену. {% endcomment %}
           {% csrf_token %}
           <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
             <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'home' %}">На главную</a>

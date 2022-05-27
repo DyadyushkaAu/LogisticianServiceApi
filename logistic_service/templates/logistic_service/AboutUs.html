@@ -5,8 +5,9 @@
 
 {%endblock%}
 
-{% block Title %}
-    О нас
+{% block title %}
+    {% comment %} TODO Вот таким способом передается title в качестве переменной. {% endcomment %}
+    {{title}} 
 {% endblock %}
 
 {% block MainContent %}

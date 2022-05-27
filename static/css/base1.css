@@ -40,4 +40,13 @@ footer {
   border-top-right-radius: 0;
 }
 
+.error_wrapper {
+  color: red;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
 
