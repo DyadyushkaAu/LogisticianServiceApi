@@ -57,6 +57,19 @@ def MyOrders(request):
         'user': request.user
     })
 
+def CreateOrderOC(request):
+    error = ''
+
+    form = ''
+    return render(request, 'logistic_service/createorderothercity.html')
+
+
+def CreateOrderOR(request):
+    error = ''
+
+    form = ''
+    return render(request, 'logistic_service/CreateOrderOtherRegion.html')
+
 
 def CreateOrder(request):
     error = ''
@@ -75,8 +88,10 @@ def CreateOrder(request):
                           context={'form': form, 'error': 'Форма неверна'})
 
     form = OrdrsForm()
+    streets = Street.objects.all()
     context = {
         'form': form,
-        'error': error
+        'error': error,
+        'streets': streets
     }
     return render(request, 'logistic_service/createorder.html', context)

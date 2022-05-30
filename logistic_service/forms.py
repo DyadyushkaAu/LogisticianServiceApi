@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Order
+from .models import Order, District, City, Street
 from django.forms import TextInput
 import numbers
 
@@ -27,17 +27,31 @@ class OrdrsForm(forms.ModelForm):
                                        'placeholder': 'Введите номер телефона'
                                    }))
 
-    address = forms.CharField(label='Введите адрес',
-                                   widget=forms.TextInput(attrs={
-                                       'class': 'form-control',
-                                       'placeholder': 'Введите адрес'
-                                   }))
+    district = forms.ModelChoiceField(label='Выберите район обслуживания',
+                                      queryset=District.objects.filter(city=City.objects.get(name='Уфа')),
+                                      empty_label='Выберите район',
+                                      widget=forms.Select(attrs={
+                                          'class': 'form-control',
+                                          'placeholder': 'Введите массу'
+                                      }))
+
+    street = forms.ChoiceField(
+        label='Выберите улицу',
+        choices=(('empty', 'Выбирете уличу'),),
+        widget=forms.Select(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите массу'
+            }
+        )
+    )
 
     mass = forms.CharField(label='Введите массу',
                                    widget=forms.TextInput(attrs={
                                        'class': 'form-control',
                                        'placeholder': 'Введите массу'
                                    }))
+
 
     class Meta:
         model = Order

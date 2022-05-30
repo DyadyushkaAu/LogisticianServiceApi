@@ -26,7 +26,7 @@ class District(models.Model):
     city = models.ForeignKey(City, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return f'{self.name} {self.city.name}'
+        return f'{self.name}'
 
 
 class Street(models.Model):
