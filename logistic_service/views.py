@@ -32,6 +32,7 @@ def signup(request):
 
 
 def Index(request):
+    print('ffff')
     return render(request, 'logistic_service/index.html')
 
 
