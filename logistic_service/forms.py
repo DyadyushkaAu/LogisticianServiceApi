@@ -32,18 +32,18 @@ class OrdrsForm(forms.ModelForm):
                                        'placeholder': 'Введите номер телефона'
                                    }))
 
-    region = forms.ModelChoiceField(label='Выбирете регион',
+    region = forms.ModelChoiceField(label='Выберите регион',
                                     queryset=Region.objects.all(),
-                                    empty_label='Выебите регион',
+                                    empty_label='Выберите регион',
                                     widget=forms.Select(
                                         attrs={'class': 'form-control'}
                                     )
                                     )
 
     city = forms.CharField(label='Выберите город',
-                                      # choices=(('empty', 'Выбирете город'),),
+                                      #choices=(('empty', 'Выберите город'),),
                                       widget=forms.Select(attrs={
-                                          'class': 'form-control',
+                                          'class': 'form-control'
                                       }))
 
     district = forms.CharField(

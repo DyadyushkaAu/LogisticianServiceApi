@@ -8,7 +8,5 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path("signup", views.signup, name="signup"),
     path('myorders', views.MyOrders, name='orders'),
-    path('createorder', views.CreateOrder, name='createorder'),
-    path('createorderz', views.CreateOrderOC, name='crorderothercity'),
-    path('createorders', views.CreateOrderOR, name='crorderotherregion')
+    path('createorder', views.CreateOrder, name='crorder')
 ]
