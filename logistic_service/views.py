@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
 from .forms import UserRegistrationForm, OrdrsForm
-from .models import Order, City, Street, District
+from .models import Order, City, Street, District, Region
 
 
 def signup(request):
@@ -74,10 +74,13 @@ def CreateOrderOR(request):
 def CreateOrder(request):
     error = ''
     if request.method == 'POST':
+        print(request.POST)
         form = OrdrsForm(request.POST)
         if form.is_valid():
+            print('BFIDBIFBIDBFI')
             form = form.save(commit=False)
             form.orderer = request.user
+            form.address = f'{request.POST["street"]}, {request.POST["home"]}'
             form.state = 'Новый'
             form.save()
         else:
@@ -88,10 +91,17 @@ def CreateOrder(request):
                           context={'form': form, 'error': 'Форма неверна'})
 
     form = OrdrsForm()
+    regions = Region.objects.all()
+    cities = City.objects.all()
+    districts = District.objects.all()
     streets = Street.objects.all()
     context = {
         'form': form,
         'error': error,
+        'regions': regions,
+        'cities': cities,
+        'districts': districts,
         'streets': streets
+
     }
     return render(request, 'logistic_service/createorder.html', context)

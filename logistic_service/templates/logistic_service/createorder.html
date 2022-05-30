@@ -27,6 +27,26 @@
             </div>
 
             <div class="error_wrapper">
+                {% for error in form.region.errors %}
+                    {{ error | escape }}
+                {% endfor %}
+            </div>
+            <div id="idDistrict">
+                {{form.region}}
+            </div>
+            <br>
+
+            <div class="error_wrapper">
+                {% for error in form.city.errors %}
+                    {{ error | escape }}
+                {% endfor %}
+            </div>
+            <div id="idDistrict">
+                {{form.city}}
+            </div>
+            <br>
+
+            <div class="error_wrapper">
                 {% for error in form.district.errors %}
                     {{ error | escape }}
                 {% endfor %}
@@ -42,6 +62,13 @@
             <br>
 
             <div class="error_wrapper">
+                {% for error in form.home.errors %}
+                    {{ error | escape }}
+                {% endfor %}
+            </div>
+            {{form.home}} <br>
+
+            <div class="error_wrapper">
                 {% for error in form.mass.errors %}
                     {{ error | escape }}
                 {% endfor %}
@@ -53,20 +80,43 @@
         </form>
     </div>
     <script>
-        var district = document.getElementById('id_district');
+        var regions = document.getElementById('id_region');
+        var cities = document.getElementById('id_city');
+        var districts = document.getElementById('id_district');
         var streets = document.getElementById('id_street');
 
-        district.addEventListener('change', changes);
+        regions.addEventListener('change', change_city);
+        cities.addEventListener('change', change_districts);
+        districts.addEventListener('change', change_streets);
+
+        function change_city() {
+            cities.innerHTML = '';
+            cities.append(new Option('Выберите город', 'empty'));
+            {% for city in cities %}
+                if (regions.options[regions.selectedIndex].text == `{{ city.region.name }}`) {
+                    cities.append(new Option('{{city.name}}', '{{ city.name }}'));
+                }
+            {% endfor %}
+        }
+
+        function change_districts() {
+            districts.innerHTML = '';
+            districts.append(new Option('Выберите район', 'empty'));
+            {% for district in districts %}
+                if (cities.options[cities.selectedIndex].text == `{{ district.city.name }}`) {
+                    districts.append(new Option('{{district.name}}', '{{ district.name }}'));
+                }
+            {% endfor %}
+        }
 
 
 
-        function changes() {
+        function change_streets() {
             streets.innerHTML = '';
             streets.append(new Option('Выберите улицу', 'empty'));
-            console.log(district.options[district.selectedIndex].text);
             {% for street in streets %}
-                if (district.options[district.selectedIndex].text == `{{ street.district }}`) {
-                    streets.append(new Option('{{street.name}}', '{{ street.district }}'));
+                if (districts.options[districts.selectedIndex].text == `{{ street.district.name }}`) {
+                    streets.append(new Option('{{street.name}}', '{{ street.name }}'));
                 }
             {% endfor %}
         }

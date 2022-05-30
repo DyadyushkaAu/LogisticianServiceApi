@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Order, District, City, Street
+from .models import Order, District, City, Street, Region
 from django.forms import TextInput
 import numbers
 
@@ -21,30 +21,52 @@ class UserRegistrationForm(forms.ModelForm):
 
 class OrdrsForm(forms.ModelForm):
 
+    address = forms.CharField(max_length=255, required=False,
+                              widget=forms.TextInput(attrs={
+                                       'class': 'form-control'
+                                   }))
+
     phone_number = forms.CharField(label='Введите номер телефона',
                                    widget=forms.TextInput(attrs={
                                        'class': 'form-control',
                                        'placeholder': 'Введите номер телефона'
                                    }))
 
-    district = forms.ModelChoiceField(label='Выберите район обслуживания',
-                                      queryset=District.objects.filter(city=City.objects.get(name='Уфа')),
-                                      empty_label='Выберите район',
+    region = forms.ModelChoiceField(label='Выбирете регион',
+                                    queryset=Region.objects.all(),
+                                    empty_label='Выебите регион',
+                                    widget=forms.Select(
+                                        attrs={'class': 'form-control'}
+                                    )
+                                    )
+
+    city = forms.CharField(label='Выберите город',
+                                      # choices=(('empty', 'Выбирете город'),),
                                       widget=forms.Select(attrs={
                                           'class': 'form-control',
-                                          'placeholder': 'Введите массу'
                                       }))
 
-    street = forms.ChoiceField(
+    district = forms.CharField(
+        label='Выберите район обслуживания',
+        widget=forms.Select(
+            attrs={'class': 'form-control'}
+        )
+    )
+
+    street = forms.CharField(
         label='Выберите улицу',
-        choices=(('empty', 'Выбирете уличу'),),
         widget=forms.Select(
             attrs={
-                'class': 'form-control',
-                'placeholder': 'Введите массу'
+                'class': 'form-control'
             }
         )
     )
+
+    home = forms.CharField(label='Введите номер дома',
+                           widget=forms.TextInput(attrs={
+                               'class': 'form-control',
+                               'placeholder': 'Введите номер дома'
+                           }))
 
     mass = forms.CharField(label='Введите массу',
                                    widget=forms.TextInput(attrs={
@@ -52,10 +74,11 @@ class OrdrsForm(forms.ModelForm):
                                        'placeholder': 'Введите массу'
                                    }))
 
-
     class Meta:
         model = Order
-        fields = ['address', 'mass', 'phone_number', 'orderer', 'state']
+        fields = [
+            # 'address',
+            'mass', 'phone_number', 'orderer', 'state']
         widgets = {
             # 'address': TextInput(attrs={
             #     'class': 'form-control',

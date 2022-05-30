@@ -14,11 +14,19 @@ class Logistician(models.Model):
         return f'{self.name} {self.surname} {self.user.email}'
 
 
-class City(models.Model):
+class Region(models.Model):
     name = models.CharField(max_length=80, null=False, blank=False)
 
     def __str__(self):
         return f'{self.name}'
+
+
+class City(models.Model):
+    name = models.CharField(max_length=80, null=False, blank=False)
+    region = models.ForeignKey(Region, null=False,  blank=False, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return f'{self.id} {self.region.name} {self.name}'
 
 
 class District(models.Model):
@@ -26,15 +34,15 @@ class District(models.Model):
     city = models.ForeignKey(City, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.id} {self.city.name} {self.name}'
 
 
 class Street(models.Model):
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=80, null=False, blank=False)
     district = models.ForeignKey(District, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return f'{self.name} {self.district.name}'
+        return f'{self.id} {self.name} {self.district.name}'
 
 
 class Order(models.Model):
@@ -81,7 +89,7 @@ class Driver(models.Model):
 class Waybill(models.Model):
     number_of_waybill = models.IntegerField(null=False, blank=False)
     state = models.CharField(max_length=45, null=False, blank=False)
-    distinct = models.ForeignKey(District, null=False, blank=False, on_delete=models.DO_NOTHING)
+    district = models.ForeignKey(District, null=False, blank=False, on_delete=models.DO_NOTHING)
     driver = models.ForeignKey(Driver, null=False, blank=False, on_delete=models.DO_NOTHING)
     logistician = models.ForeignKey(Logistician, null=False, blank=False, on_delete=models.DO_NOTHING)
     registration_date = models.DateField(auto_now_add=True, null=False, blank=False)
