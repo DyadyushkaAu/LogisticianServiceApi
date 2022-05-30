@@ -1,0 +1,18 @@
+
+ {% extends 'logistic_service/base.html' %}
+{% load static %}
+
+{%block HeaderBlock%}
+
+{%endblock%}
+
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block MainContent %}
+     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+        <h1>Заказ оформлен успешно!</h1>
+        <p>Посмотреть историю и статус заказов можно <a href="{% url 'orders' %}">здесь</a></p>
+    </div>
+{% endblock %}
