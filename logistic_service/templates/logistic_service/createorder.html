@@ -104,7 +104,7 @@
             districts.append(new Option('Выберите район', 'empty'));
             {% for district in districts %}
                 if (cities.options[cities.selectedIndex].text == `{{ district.city.name }}`) {
-                    districts.append(new Option('{{district.name}}', '{{ district.name }}'));
+                    districts.append(new Option('{{district.name}}', '{{ district.id }}'));
                 }
             {% endfor %}
         }
