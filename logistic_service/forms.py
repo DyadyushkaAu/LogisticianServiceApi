@@ -59,8 +59,13 @@ class OrdrsForm(forms.ModelForm):
             attrs={
                 'class': 'form-control'
             }
-        )
-    )
+        ))
+
+    desc = forms.CharField(label='Введите описание',
+                                   widget=forms.TextInput(attrs={
+                                       'class': 'form-control',
+                                       'placeholder': 'Описание (необязательно)'
+                                   }))
 
     home = forms.CharField(label='Введите номер дома',
                            widget=forms.TextInput(attrs={
@@ -78,7 +83,7 @@ class OrdrsForm(forms.ModelForm):
         model = Order
         fields = [
             # 'address',
-            'mass', 'phone_number', 'orderer', 'state']
+            'mass', 'phone_number', 'orderer', 'state', 'description', 'district', 'street']
         widgets = {
             # 'address': TextInput(attrs={
             #     'class': 'form-control',
