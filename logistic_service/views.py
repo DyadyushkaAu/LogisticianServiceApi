@@ -69,8 +69,6 @@ def CreateOrder(request):
             form.orderer = request.user
             form.address = f'{request.POST["street"]}, {request.POST["home"]}'
             form.description = f'{request.POST["desc"]}'
-            form.region = int(request.Region)
-            form.district = request.District
             form.state = 'Новый'
             form.save()
             return render(request, 'logistic_service/order_ready.html')

@@ -41,7 +41,7 @@
           {% comment %} TODO Зачем тут CSRF? Он применяется только к формам чтобы исключить их подмену. {% endcomment %}
           {% csrf_token %}
           <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-<!--            <span class="me-3 py-2 text-dark text-decoration-none">{{users.user}}</span>-->
+            <p class="me-3 py-2 text-dark text-decoration-none">Приветствуем, {{ user.first_name }}!</p>
             <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'home' %}">На главную</a>
             <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'about' %}">О компании</a>
             <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'crorder' %}">Оформить заказ</a>
