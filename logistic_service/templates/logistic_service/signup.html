@@ -14,17 +14,23 @@
     <p class="text-center">Пожалуйста, зарегистрируйтесь</p>
     <form action="{% url 'signup' %}" class="pricing-header p-3 pb-md-4 mx-auto" method="post">
         {% csrf_token %}
-        {% for field in user_form %}
-        <div class="row_wrapper">
-            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-            <p>{{ field }}</p>
-            <div class="error_wrapper">
-                {% for error in field.errors %}
-                    {{ error | escape }}
-                {% endfor %}
-            </div>
-        </div>
-        {% endfor %}
+        <table class="pricing-header p-3 pb-md-4 mx-auto">
+            {% for field in user_form %}
+            <tr>
+                <td>
+                    <div class="row_wrapper">
+                        <div class="error_wrapper">
+                            {% for error in field.errors %}
+                                {{ error | escape }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </td>
+                <td><label for="{{ field.id_for_label }}">{{ field.label }}</label></td>
+                <td><p>{{ field }}</p></td>
+            </tr>
+            {% endfor %}
+        </table>
         <p class="text-center"><input class="w-50 btn btn-lg btn-primary" type="submit" value="Зарегистрироваться"></p>
     </form>
 

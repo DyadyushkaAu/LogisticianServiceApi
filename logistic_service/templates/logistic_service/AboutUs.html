@@ -17,14 +17,35 @@
       </h3>
 
       <article class="blog-post">
-        <h2 class="blog-post-title mb-1">Работаем в Уфе уже 2 года</h2>
+        <h2 class="blog-post-title mb-1">Работаем в Уфе уже <span id="razn"></span></h2>
 
         <p>Наша компания была основана в 2020 году, и с тех пор стала лидером в области доставки товаров по Республике Башкортостан.</p>
         <hr>
         <p>ТрансЛогистик — это более 140 000 квадратных метров автоматизированных складов непрерывного цикла, 10 филиалов в Республике Башкортостан. Более 50 автомобилей осуществляют более 1 000 ежедневных доставок в более чем 15 городов.</p>
+        <h3></h3>
         <img width="1250" src="{% static 'images/tent.jpg'%}"></img>
+        <h3></h3>
         <h3>ПРИНЦИПЫ ТРАНСЛОГИСТИК</h3>
         <p>Повышать качество жизни и безопасность людей, упрощая и оптимизируя процесс доставки товаров. Для этого ТрансЛогистик поставил перед собой задачу — поставлять качественные товары наиболее быстрым, безопасным и удобным для клиента способом.</p>
         </article>
     </div>
+
+    <script>
+        var now = new Date();
+        var osn = new Date(2020, 0, 1);
+        var raznica_y = now.getFullYear() - osn.getFullYear();
+        if (raznica_y % 10 == 1)
+        {
+            var raznica = raznica_y + " год";
+        }
+        else if (raznica_y % 10 > 1 && raznica_y < 5)
+        {
+            var raznica = raznica_y + " года";
+        }
+        else
+        {
+            var raznica = raznica_y + " лет";
+        }
+        document.getElementById("razn").innerHTML = raznica;
+    </script>
 {% endblock %}

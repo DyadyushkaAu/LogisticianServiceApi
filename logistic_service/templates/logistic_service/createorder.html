@@ -13,68 +13,114 @@
     <div class="container">
         <form method="post">
             {%csrf_token%}
-            <div class="error_wrapper">
-                {% for error in form.phone_number.errors %}
-                    {{ error | escape }}
-                {% endfor %}
-            </div>
-            {{form.phone_number}} <br>
+        <table class="pricing-header p-3 pb-md-4 mx-auto">
 
-            <div class="error_wrapper">
-                {% for error in form.street.errors %}
-                    {{ error | escape }}
-                {% endfor %}
-            </div>
+            <tr>
+                <td>
+                    <div class="error_wrapper">
+                    {% for error in form.phone_number.errors %}
+                        {{ error | escape }}
+                    {% endfor %}
+                    </div>
+                </td>
+            </tr>
 
-            <div class="error_wrapper">
-                {% for error in form.region.errors %}
-                    {{ error | escape }}
-                {% endfor %}
-            </div>
-            <div id="idDistrict">
-                {{form.region}}
-            </div>
-            <br>
+            <tr>
+                <td><h1 class="h3 mb-3 fw-normal">Введите номер телефона </h1></td>
+                <td>{{form.phone_number}} <br></td>
+            </tr>
 
-            <div class="error_wrapper">
-                {% for error in form.city.errors %}
-                    {{ error | escape }}
-                {% endfor %}
-            </div>
-            <div id="idDistrict">
-                {{form.city}}
-            </div>
-            <br>
+            <tr>
+                <td>
+                    <div class="error_wrapper">
+                        {% for error in form.region.errors %}
+                            {{ error | escape }}
+                        {% endfor %}
+                    </div>
+                </td>
+            </tr>
 
-            <div class="error_wrapper">
-                {% for error in form.district.errors %}
-                    {{ error | escape }}
-                {% endfor %}
-            </div>
-            <div id="idDistrict">
-                {{form.district}}
-            </div>
-            <br>
+            <tr>
+                <td><h1 class="h3 mb-3 fw-normal">Регион доставки </h1></td>
+                <td><div id="idDistrict">{{form.region}}</div><br></td>
+            </tr>
 
-            <div id="idStreet">
-                {{form.street}}
-            </div>
-            <br>
+            <tr>
+                <td>
+                    <div class="error_wrapper">
+                        {% for error in form.city.errors %}
+                            {{ error | escape }}
+                        {% endfor %}
+                    </div>
+                </td>
+            </tr>
 
-            <div class="error_wrapper">
-                {% for error in form.home.errors %}
-                    {{ error | escape }}
-                {% endfor %}
-            </div>
-            {{form.home}} <br>
+            <tr>
+                <td><h1 class="h3 mb-3 fw-normal">Город </h1></td>
+                <td><div id="idDistrict">{{form.city}}</div><br></td>
+            </tr>
 
-            <div class="error_wrapper">
-                {% for error in form.mass.errors %}
-                    {{ error | escape }}
-                {% endfor %}
-            </div>
-            {{form.mass}} <br>
+            <tr>
+                <td>
+                    <div class="error_wrapper">
+                        {% for error in form.district.errors %}
+                            {{ error | escape }}
+                        {% endfor %}
+                    </div>
+                </td>
+            </tr>
 
+            <tr>
+                <td><h1 class="h3 mb-3 fw-normal">Район </h1></td>
+                <td><div id="idDistrict">{{form.district}}</div><br></td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="error_wrapper">
+                        {% for error in form.street.errors %}
+                            {{ error | escape }}
+                        {% endfor %}
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td><h1 class="h3 mb-3 fw-normal">Улица </h1></td>
+                <td><div id="idStreet">{{form.street}}</div><br></td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="error_wrapper">
+                        {% for error in form.home.errors %}
+                            {{ error | escape }}
+                        {% endfor %}
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td><h1 class="h3 mb-3 fw-normal">Дом </h1></td>
+                <td>{{form.home}} <br></td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="error_wrapper">
+                        {% for error in form.mass.errors %}
+                            {{ error | escape }}
+                        {% endfor %}
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td><h1 class="h3 mb-3 fw-normal">Масса заказа </h1></td>
+                <td>{{form.mass}} <br></td>
+            </tr>
+
+        </table>
             <button class="w-100 btn btn-primary btn-lg" type="submit">Оформить заказ</button>
             <span>{{error}}</span>
         </form>
