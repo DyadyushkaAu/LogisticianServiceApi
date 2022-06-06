@@ -67,7 +67,7 @@ def CreateOrder(request):
             print('BFIDBIFBIDBFI')
             form = form.save(commit=False)
             form.orderer = request.user
-            form.address = f'{request.POST["street"]}, {request.POST["home"]}'
+            form.address = f'{request.POST["city"]}, {request.POST["street"]}, {request.POST["home"]}'
             form.description = f'{request.POST["desc"]}'
             form.state = 'Новый'
             form.save()

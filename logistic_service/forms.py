@@ -26,7 +26,7 @@ class OrdrsForm(forms.ModelForm):
                                        'class': 'form-control'
                                    }))
 
-    phone_number = forms.CharField(label='Введите номер телефона',
+    phone_number = forms.CharField(label='Введите номер телефона получателя',
                                    widget=forms.TextInput(attrs={
                                        'class': 'form-control',
                                        'placeholder': 'Введите номер телефона'
@@ -62,9 +62,9 @@ class OrdrsForm(forms.ModelForm):
         ))
 
     desc = forms.CharField(label='Введите описание',
-                                   widget=forms.TextInput(attrs={
+                                   widget=forms.Textarea(attrs={
                                        'class': 'form-control',
-                                       'placeholder': 'Описание (необязательно)'
+                                       'placeholder': 'Описание'
                                    }))
 
     home = forms.CharField(label='Введите номер дома',

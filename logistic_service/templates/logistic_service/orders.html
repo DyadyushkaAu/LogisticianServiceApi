@@ -15,16 +15,18 @@
     <table style="width:100%">
         <tr class="text-center">
             <td class="themed-grid-col" style="width:10%">Номер заказа</td>
-            <td class="themed-grid-col" style="width:30%">Дата заказа</td>
-            <td class="themed-grid-col" style="width:40%">Адрес доставки</td>
+            <td class="themed-grid-col" style="width:20%">Дата заказа</td>
+            <td class="themed-grid-col" style="width:30%">Адрес доставки</td>
+            <td class="themed-grid-col" style="width:20%">Номер телефона получателя</td>
             <td class="themed-grid-col" style="width:20%">Статус</td>
         </tr>
 
         {% for order in orders %}
         <tr class="text-center">
             <td class="themed-grid-col" style="width:10%">{{ order.id }}</td>
-            <td class="themed-grid-col" style="width:30%">{{ order.date }}</td>
-            <td class="themed-grid-col" style="width:40%">{{order.address}}</td>
+            <td class="themed-grid-col" style="width:20%">{{ order.date }}</td>
+            <td class="themed-grid-col" style="width:30%">{{ order.address }}</td>
+            <td class="themed-grid-col" style="width:30%">{{ order.phone_number }}</td>
             <td class="themed-grid-col" style="width:20%">{{ order.state }}</td>
         </tr>
         {% endfor %}
