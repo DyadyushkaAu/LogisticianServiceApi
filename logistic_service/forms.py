@@ -10,7 +10,7 @@ class UserRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'email')
+        fields = ('username', 'first_name', 'last_name', 'email')
 
     def clean(self):
         cd = super().clean()
@@ -26,24 +26,24 @@ class OrdrsForm(forms.ModelForm):
                                        'class': 'form-control'
                                    }))
 
-    phone_number = forms.CharField(label='Введите номер телефона',
+    phone_number = forms.CharField(label='Введите номер телефона получателя',
                                    widget=forms.TextInput(attrs={
                                        'class': 'form-control',
                                        'placeholder': 'Введите номер телефона'
                                    }))
 
-    region = forms.ModelChoiceField(label='Выбирете регион',
+    region = forms.ModelChoiceField(label='Выберите регион',
                                     queryset=Region.objects.all(),
-                                    empty_label='Выебите регион',
+                                    empty_label='Выберите регион',
                                     widget=forms.Select(
                                         attrs={'class': 'form-control'}
                                     )
                                     )
 
     city = forms.CharField(label='Выберите город',
-                                      # choices=(('empty', 'Выбирете город'),),
+                                      #choices=(('empty', 'Выберите город'),),
                                       widget=forms.Select(attrs={
-                                          'class': 'form-control',
+                                          'class': 'form-control'
                                       }))
 
     district = forms.CharField(
@@ -59,8 +59,13 @@ class OrdrsForm(forms.ModelForm):
             attrs={
                 'class': 'form-control'
             }
-        )
-    )
+        ))
+
+    desc = forms.CharField(label='Введите описание',
+                                   widget=forms.Textarea(attrs={
+                                       'class': 'form-control',
+                                       'placeholder': 'Описание'
+                                   }))
 
     home = forms.CharField(label='Введите номер дома',
                            widget=forms.TextInput(attrs={
@@ -78,7 +83,7 @@ class OrdrsForm(forms.ModelForm):
         model = Order
         fields = [
             # 'address',
-            'mass', 'phone_number', 'orderer', 'state']
+            'mass', 'phone_number', 'orderer', 'state', 'description', 'district', 'street']
         widgets = {
             # 'address': TextInput(attrs={
             #     'class': 'form-control',

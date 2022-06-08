@@ -15,7 +15,7 @@ def signup(request):
             new_user.save()
             return render(request, 'logistic_service/register_done.html', context={
                 'new_user': new_user,
-                'title': 'Регистрация завершина'
+                'title': 'Регистрация завершена'
             })
         else:
             user_form = UserRegistrationForm(request.POST)
@@ -57,19 +57,6 @@ def MyOrders(request):
         'user': request.user
     })
 
-def CreateOrderOC(request):
-    error = ''
-
-    form = ''
-    return render(request, 'logistic_service/createorderothercity.html')
-
-
-def CreateOrderOR(request):
-    error = ''
-
-    form = ''
-    return render(request, 'logistic_service/CreateOrderOtherRegion.html')
-
 
 def CreateOrder(request):
     error = ''
@@ -80,9 +67,11 @@ def CreateOrder(request):
             print('BFIDBIFBIDBFI')
             form = form.save(commit=False)
             form.orderer = request.user
-            form.address = f'{request.POST["street"]}, {request.POST["home"]}'
+            form.address = f'{request.POST["city"]}, {request.POST["street"]}, {request.POST["home"]}'
+            form.description = f'{request.POST["desc"]}'
             form.state = 'Новый'
             form.save()
+            return render(request, 'logistic_service/order_ready.html')
         else:
             print(form.errors)
             form = OrdrsForm(request.POST)

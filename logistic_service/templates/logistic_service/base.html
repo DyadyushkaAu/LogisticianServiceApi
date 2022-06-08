@@ -41,9 +41,10 @@
           {% comment %} TODO Зачем тут CSRF? Он применяется только к формам чтобы исключить их подмену. {% endcomment %}
           {% csrf_token %}
           <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+            <p class="me-3 py-2 text-dark text-decoration-none">Приветствуем, {{ user.first_name }}!</p>
             <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'home' %}">На главную</a>
             <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'about' %}">О компании</a>
-            <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'catalogue' %}">Каталог услуг</a>
+            <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'crorder' %}">Оформить заказ</a>
             <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'orders' %}">Мои заказы</a>
             <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'logout' %}">Выйти</a>
           </nav>
@@ -52,7 +53,6 @@
               <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'home' %}">На главную</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'about' %}">О компании</a>
-                <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'catalogue' %}">Каталог услуг</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'login' %}">Войти</a>
               </nav>
           {% endif %}
@@ -64,11 +64,24 @@
     </main>
 </div>
     <footer class="py-3 my-4">
+
+       {% if user.is_authenticated %}
+
        <ul class="nav justify-content-center  pb-3 mb-3">
           <li class="nav-item"><a href="{% url 'home' %}" class="nav-link px-2 text-muted">На главную</a></li>
-          <li class="nav-item"><a href="{% url 'catalogue' %}" class="nav-link px-2 text-muted">Каталог услуг</a></li>
+          <li class="nav-item"><a href="{% url 'crorder' %}" class="nav-link px-2 text-muted">Оформить заказ</a></li>
           <li class="nav-item"><a href="{% url 'about' %}" class="nav-link px-2 text-muted">О компании</a></li>
        </ul>
+
+        {% else %}
+
+       <ul class="nav justify-content-center  pb-3 mb-3">
+          <li class="nav-item"><a href="{% url 'home' %}" class="nav-link px-2 text-muted">На главную</a></li>
+          <li class="nav-item"><a href="{% url 'about' %}" class="nav-link px-2 text-muted">О компании</a></li>
+       </ul>
+
+        {% endif %}
+
        <p class="text-center text-muted">©2020-2022 ООО "ТрансЛогистик"</p>
     </footer>
 </body>

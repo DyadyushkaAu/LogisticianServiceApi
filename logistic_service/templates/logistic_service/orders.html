@@ -10,19 +10,26 @@
 {% endblock %}
 
 {% block MainContent %}
-<div class="container">
-    <div class="row mb-3">
-      <div class="col-4 themed-grid-col">Номер заказа</div>
-      <div class="col-4 themed-grid-col">Дата</div>
-      <div class="col-4 themed-grid-col">Статус</div>
-    </div>
 
-    <div class="row mb-3">
-      {% for order in orders %}
-        <div class="col-sm-4 themed-grid-col">{{ order.id }}</div>
-        <div class="col-sm-4 themed-grid-col">{{ order.date }}</div>
-        <div class="col-sm-4 themed-grid-col">{{ order.state }}</div>
-      {% endfor %}
-    </div>
+<div class="container">
+    <table style="width:100%">
+        <tr class="text-center">
+            <td class="themed-grid-col" style="width:10%">Номер заказа</td>
+            <td class="themed-grid-col" style="width:20%">Дата заказа</td>
+            <td class="themed-grid-col" style="width:30%">Адрес доставки</td>
+            <td class="themed-grid-col" style="width:20%">Номер телефона получателя</td>
+            <td class="themed-grid-col" style="width:20%">Статус</td>
+        </tr>
+
+        {% for order in orders %}
+        <tr class="text-center">
+            <td class="themed-grid-col" style="width:10%">{{ order.id }}</td>
+            <td class="themed-grid-col" style="width:20%">{{ order.date }}</td>
+            <td class="themed-grid-col" style="width:30%">{{ order.address }}</td>
+            <td class="themed-grid-col" style="width:30%">{{ order.phone_number }}</td>
+            <td class="themed-grid-col" style="width:20%">{{ order.state }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
 {% endblock %}
