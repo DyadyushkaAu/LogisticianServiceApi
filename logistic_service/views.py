@@ -70,6 +70,7 @@ def CreateOrder(request):
             form.address = f'{request.POST["city"]}, {request.POST["street"]}, {request.POST["home"]}'
             form.description = f'{request.POST["desc"]}'
             form.state = 'Новый'
+            form.district = District.objects.get(id=request.POST["district"])
             form.save()
             return render(request, 'logistic_service/order_ready.html')
         else:

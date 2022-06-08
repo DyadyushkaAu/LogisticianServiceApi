@@ -52,6 +52,7 @@ class Order(models.Model):
     mass = models.DecimalField(max_digits=10, decimal_places=2, null=False)
     phone_number = models.BigIntegerField(null=False, blank=False)
     orderer = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    district = models.ForeignKey(District, null=True, blank=True, on_delete=models.DO_NOTHING)
     description = models.CharField(max_length=400, null=True, blank=True)
 
     def __str__(self):

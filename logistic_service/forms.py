@@ -83,7 +83,14 @@ class OrdrsForm(forms.ModelForm):
         model = Order
         fields = [
             # 'address',
-            'mass', 'phone_number', 'orderer', 'state', 'description', 'district', 'street']
+            'mass',
+            'phone_number',
+            'orderer',
+            'state',
+            'description',
+            # 'district',
+            'street'
+        ]
         widgets = {
             # 'address': TextInput(attrs={
             #     'class': 'form-control',
