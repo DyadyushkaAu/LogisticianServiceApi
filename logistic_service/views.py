@@ -1,9 +1,16 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
+from rest_framework.response import Response
+
 from .forms import UserRegistrationForm, OrdrsForm
-from .models import Order, City, Street, District, Region
+from .models import Order, City, Street, District, Region, Logistician
+from rest_framework import generics, authentication, permissions
+from rest_framework.views import APIView
+
+from .serializers import LogisticianSerializer, UserSerializer
 
 
 def signup(request):
@@ -95,3 +102,39 @@ def CreateOrder(request):
 
     }
     return render(request, 'logistic_service/createorder.html', context)
+
+
+class LogisticianApiView(generics.ListAPIView):
+    queryset = Logistician.objects.all()
+    serializer_class = LogisticianSerializer
+
+    # def get(self):
+    #     return Logistician.objects.get(id=1).user.username
+
+
+class UserApiView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class ListUsers(APIView):
+    """
+    View to list all users in the system.
+
+    * Requires token authentication.
+    * Only admin users are able to access this view.
+    """
+    # authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request, format=None):
+        """
+        Return a list of all users.
+        """
+        # usernames = []
+        queryset = Logistician.objects.all()
+        #     usernames.append([{logist.logistlogin} {logist.logistpassword}])
+        return Response(LogisticianSerializer)
+
+    def post(self, request):
+        return Response('"status": "ZAEBIS"')

@@ -1,6 +1,7 @@
 from django.urls import path, include
 from . import views
 
+
 urlpatterns = [
     path('', views.Index, name='home'),
     path('aboutus', views.About, name='about'),
@@ -8,5 +9,8 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path("signup", views.signup, name="signup"),
     path('myorders', views.MyOrders, name='orders'),
-    path('createorder', views.CreateOrder, name='crorder')
+    path('createorder', views.CreateOrder, name='crorder'),
+    path('api/logistician', views.LogisticianApiView.as_view()),
+    path('api/user', views.UserApiView.as_view()),
+    path('test', views.ListUsers.as_view())
 ]

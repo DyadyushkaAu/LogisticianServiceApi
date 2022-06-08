@@ -8,10 +8,11 @@ class Logistician(models.Model):
     name = models.CharField(max_length=80, null=False, blank=False)
     surname = models.CharField(max_length=80, null=False, blank=False)
     lastname = models.CharField(max_length=80, null=False, blank=False)
-    user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
+    logistlogin = models.CharField(max_length=80, null=False, blank=False)
+    logistpassword = models.CharField(max_length=80, null=False, blank=False)
 
     def __str__(self):
-        return f'{self.name} {self.surname} {self.user.email}'
+        return f'{self.name} {self.surname}'
 
 
 class Region(models.Model):
@@ -76,7 +77,6 @@ class Car(models.Model):
 
 
 class Driver(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=80, null=False, blank=False)
     surname = models.CharField(max_length=80, null=False, blank=False)
     lastname = models.CharField(max_length=80, null=False, blank=False)
@@ -85,7 +85,7 @@ class Driver(models.Model):
     state = models.CharField(max_length=45, null=False, blank=False)
 
     def __str__(self):
-        return f'{self.name} {self.surname} {self.user.email} {self.auto.manufacturer_model}|{self.auto.gn}'
+        return f'{self.name} {self.surname} {self.auto.manufacturer_model}|{self.auto.gn}'
 
 
 class Waybill(models.Model):
