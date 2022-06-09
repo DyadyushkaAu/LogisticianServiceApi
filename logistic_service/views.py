@@ -129,6 +129,9 @@ class CreateWayBill(APIView):
 
     def post(self, request):
         print(request.data['number_of_waybill'])
+        Waybill.objects.create(
+            number_of_waybill=request.data['number_of_waybill']
+        )
         last_way_bill = Waybill.objects.filter().order_by('-id')[0]
         serializer = WayBillSerializer(last_way_bill)
         return Response(serializer.data)
