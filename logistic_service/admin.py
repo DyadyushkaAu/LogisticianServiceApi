@@ -4,7 +4,6 @@ from logistic_service.models import Logistician, District, Order, Car, Driver, S
 
 class DriverAdmin(admin.ModelAdmin):
     list_display = (
-        'get_email',
         'name',
         'surname',
         'lastname',
@@ -12,10 +11,6 @@ class DriverAdmin(admin.ModelAdmin):
         'state',
     )
 
-    readonly_fields = ('get_email',)
-
-    def get_email(self, obj):
-        return f'{obj.user.email}'
 
 
 admin.site.register(Logistician)

@@ -10,7 +10,6 @@ urlpatterns = [
     path("signup", views.signup, name="signup"),
     path('myorders', views.MyOrders, name='orders'),
     path('createorder', views.CreateOrder, name='crorder'),
-    path('api/logistician', views.LogisticianApiView.as_view()),
-    path('api/user', views.UserApiView.as_view()),
-    path('test', views.ListUsers.as_view())
+    path('api/logistician', views.ListUsers.as_view()),
+    path('api/createwaybill', views.CreateWayBill.as_view())
 ]

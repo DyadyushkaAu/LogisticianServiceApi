@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.db.models import Max
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
@@ -6,11 +7,11 @@ from django.views.generic.edit import CreateView
 from rest_framework.response import Response
 
 from .forms import UserRegistrationForm, OrdrsForm
-from .models import Order, City, Street, District, Region, Logistician
-from rest_framework import generics, authentication, permissions
+from .models import Order, City, Street, District, Region, Logistician, Waybill
+from rest_framework import generics, authentication, permissions, serializers
 from rest_framework.views import APIView
 
-from .serializers import LogisticianSerializer, UserSerializer
+from .serializers import WayBillSerializer
 
 
 def signup(request):
@@ -104,37 +105,30 @@ def CreateOrder(request):
     return render(request, 'logistic_service/createorder.html', context)
 
 
-class LogisticianApiView(generics.ListAPIView):
-    queryset = Logistician.objects.all()
-    serializer_class = LogisticianSerializer
-
-    # def get(self):
-    #     return Logistician.objects.get(id=1).user.username
-
-
-class UserApiView(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
 class ListUsers(APIView):
-    """
-    View to list all users in the system.
-
-    * Requires token authentication.
-    * Only admin users are able to access this view.
-    """
-    # authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.AllowAny]
 
-    def get(self, request, format=None):
-        """
-        Return a list of all users.
-        """
-        # usernames = []
-        queryset = Logistician.objects.all()
-        #     usernames.append([{logist.logistlogin} {logist.logistpassword}])
-        return Response(LogisticianSerializer)
+    def get(self, request):
+        queryset = Logistician.objects.all().values()
+        return Response({'logisticians': queryset})
 
     def post(self, request):
-        return Response('"status": "ZAEBIS"')
+        print(request.data)
+        last_way_bill = Waybill.objects.filter().order_by('-id')[0]
+        serializer = WayBillSerializer(last_way_bill)
+        return Response(serializer.data)
+
+
+class CreateWayBill(APIView):
+
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request):
+        queryset = Logistician.objects.all().values()
+        return Response({'logisticians': queryset})
+
+    def post(self, request):
+        print(request.data['number_of_waybill'])
+        last_way_bill = Waybill.objects.filter().order_by('-id')[0]
+        serializer = WayBillSerializer(last_way_bill)
+        return Response(serializer.data)

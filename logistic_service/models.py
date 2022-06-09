@@ -95,6 +95,7 @@ class Waybill(models.Model):
     driver = models.ForeignKey(Driver, null=False, blank=False, on_delete=models.DO_NOTHING)
     logistician = models.ForeignKey(Logistician, null=False, blank=False, on_delete=models.DO_NOTHING)
     registration_date = models.DateField(auto_now_add=True, null=False, blank=False)
+    order = models.ForeignKey(Order, null=False, blank=False, on_delete=models.DO_NOTHING)
     state = models.CharField(max_length=45, null=False, blank=False)
 
     def __str__(self):
